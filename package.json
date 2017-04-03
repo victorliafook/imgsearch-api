@@ -1,0 +1,26 @@
+{
+  "name": "imgsearch-api",
+  "version": "1.0.0",
+  "description": "JS full stack app to seach images through a third-party api",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/victorliafook/imgsearch-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/victorliafook/imgsearch-api/issues"
+  },
+  "homepage": "https://github.com/victorliafook/imgsearch-api#readme",
+  "dependencies": {
+    "express": "^4.15.2",
+    "mongodb": "^2.2.25",
+    "request": "^2.81.0"
+  }
+}
