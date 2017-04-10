@@ -6,5 +6,4 @@ module.exports = class Result{
         this.snippet = snippet;
         this.context= context;
     }
-    
 }

@@ -26,8 +26,16 @@ app.get('/api/imgsrc/:searchquery', function(req, res){
     var offset = req.query.offset;
     var url = GAPI_URL + "?key=" + GAPI_KEY + "&cx=" + GSEARCH_ID +"&q=" + query + ((offset != null) ? "&start=" + offset : '' );
     console.log(url);
+    collection.insertOne({term: query, when: new Date()});
     request(url, function(error, response, body){
+        console.log(body);
         body = JSON.parse(body);
+        if(body.error){
+            console.log(body.error);
+            res.json(body.error.message);
+            res.status(body.error.code).end();
+            return;
+        }
         var items = body.items;
         var length = items.length;
         console.log(length);
@@ -43,6 +51,15 @@ app.get('/api/imgsrc/:searchquery', function(req, res){
 });
 
 app.get('/api/latest', function(req, res){
+    collection.find({}, { _id: 0}).toArray(function(err, arr){
+        if(err){
+            res.json(err);
+            console.log(err);
+        }else{
+            res.json(arr);
+        }
+        
+    });
     
 });
 
