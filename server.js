@@ -28,7 +28,7 @@ app.get('/api/imgsrc/:searchquery', function(req, res){
     console.log(url);
     collection.insertOne({term: query, when: new Date()});
     request(url, function(error, response, body){
-        console.log(body);
+        //console.log(body);
         body = JSON.parse(body);
         if(body.error){
             console.log(body.error);
@@ -42,7 +42,7 @@ app.get('/api/imgsrc/:searchquery', function(req, res){
         var result = [];
         for(var i = 0; i < length; i++){
             var item = items[i];
-            result.push(new Result(item.pagemap.imageobject[0].url, item.pagemap.cse_thumbnail[0].src, item.snippet, item.link));
+            result.push(new Result(item.pagemap.imageobject[0].url, (item.pagemap.cse_thumbnail !== undefined) ? item.pagemap.cse_thumbnail[0].src : null, item.snippet, item.link));
         }
         res.json(result);
         res.end();
@@ -51,7 +51,7 @@ app.get('/api/imgsrc/:searchquery', function(req, res){
 });
 
 app.get('/api/latest', function(req, res){
-    collection.find({}, { _id: 0}).toArray(function(err, arr){
+    collection.find({}, { _id: 0}).limit(10).toArray(function(err, arr){
         if(err){
             res.json(err);
             console.log(err);
